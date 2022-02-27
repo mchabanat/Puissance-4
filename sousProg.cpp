@@ -1,6 +1,11 @@
 #include "sousProg.h"
 
+// Sous programme cachés 
+bool estVide(const UnJeton _grille[NB_LIGNES][NB_COLONNES], const char& _coup);
+/* BUT : retourne true si la colonne à l'indice _coup est vide, false sinon */
 
+
+// Sous programmes du .h
 void afficherGrille(const UnJeton _grille[NB_LIGNES][NB_COLONNES]){
     unsigned int i;
     unsigned int j;
@@ -63,7 +68,7 @@ void remplirGrille(UnJeton _grille[NB_LIGNES][NB_COLONNES]){
 }
 
 
-void saisieVerif(char& _coup,bool& _abandon){
+void saisieVerif(const UnJeton _grille[NB_LIGNES][NB_COLONNES], char& _coup,bool& _abandon){
     while(true) {
         cout << "Numero de colonne [1.." << NB_COLONNES << "] (0 pour abandonner) : ";
         cin >> _coup;
@@ -76,43 +81,70 @@ void saisieVerif(char& _coup,bool& _abandon){
             cout << "ERREUR ! Le numero de colonne doit etre compris entre 1 et " << NB_COLONNES << ". Reessayez." << endl << endl;
         }
         else {
-            break;
+            if (estPleine(_grille,_coup)){
+                cout << "Numero de colonne incorrect : la colonne est pleine." << endl << "Choisissez une autre colonne." << endl << endl;
+            }
+            else{
+                break;
+            }
         }
     }
 }
 
 
-bool estPleine(UnJeton _grille[NB_LIGNES][NB_COLONNES], const char& _coup,const bool& _abandon){
+bool estVide(const UnJeton _grille[NB_LIGNES][NB_COLONNES], const char& _coup){
+    unsigned int colonneJouee = int(_coup)-49;
+
+    if (_grille[NB_LIGNES-1][colonneJouee] == empty){
+        return true;
+    }
+    else{
+        return false;
+    }
+}
+
+
+bool estPleine(const UnJeton _grille[NB_LIGNES][NB_COLONNES], const char& _coup){
     unsigned int colonneJouee = int(_coup)-49;
     
-    if(_abandon){
-        return false; // La colonne est considérée comme pas pleine pour qu'on puisse sortir du sous programme
+    if (_grille[0][colonneJouee] == empty){
+        return false;
     }
-    else 
-    {
-        if (_grille[0][colonneJouee] == empty){
-            return false;
-        }
-        else{
-            return true;
-        }
+    else{
+        return true;
     }
 }
-void marquerGrille(UnJeton _grille[NB_LIGNES][NB_COLONNES], char _coup, unsigned short int _joueur){
+
+
+void marquerGrille(UnJeton _grille[NB_LIGNES][NB_COLONNES], const char& _coup, unsigned short int _joueur){
     unsigned int colonneJouee = int(_coup)-49;
 
     unsigned int i;
 
-    for (i = 0; i < NB_LIGNES-1; i++)
+    if (estVide(_grille,_coup))
     {
-        if(_grille[i+1][colonneJouee] != empty){
-            if (_joueur==1){
-                _grille[i][colonneJouee] = red;
+        if (_joueur==1){
+            _grille[NB_LIGNES-1][colonneJouee] = red;
+        }
+        else{
+            _grille[NB_LIGNES-1][colonneJouee] = yellow;
+        }
+    }
+    else
+    {
+        for (i = 0; i < NB_LIGNES-1; i++)
+        {
+            if (_grille[i][colonneJouee] == empty && _grille[i+1][colonneJouee] != empty)
+            {
+                if (_joueur==1){
+                    _grille[i][colonneJouee] = red;
+                }
+                else{
+                    _grille[i][colonneJouee] = yellow;
+                }
             }
-            else{
-                _grille[i][colonneJouee] = yellow;
-            }
-            break;
         }
     }
 }
+
+

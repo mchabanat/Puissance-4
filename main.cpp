@@ -13,25 +13,32 @@
 
 using namespace std;
 
-// int main(void){ // Tests
-//     UnJeton grilleJeu[NB_LIGNES][NB_COLONNES] = {
-//         empty,red,empty,empty,empty,empty,empty,
-//         empty,red,empty,empty,empty,empty,empty,
-//         empty,red,empty,empty,empty,empty,empty,
-//         empty,red,empty,empty,empty,empty,empty,
-//         empty,red,empty,empty,empty,empty,empty,
-//         empty,red,empty,empty,empty,empty,empty
-//     };
 
-//     char coup = '2';
-//     bool ab;
+int main2(void){ // Tests
+    UnJeton grilleJeu[NB_LIGNES][NB_COLONNES] 
+    = {
+        empty,red,empty,empty,empty,empty,empty,
+        empty,red,empty,empty,empty,empty,empty,
+        empty,red,empty,empty,empty,empty,empty,
+        empty,yellow,empty,empty,empty,empty,empty,
+        empty,yellow,empty,empty,empty,empty,empty,
+        empty,red,empty,empty,empty,empty,empty,
+    };
 
-//     if (estPleine(grilleJeu,coup,ab))
-//     {
-//         cout << "bonsoir" << endl;
-//     }
-//     afficherGrille(grilleJeu);
-// }
+    
+    // remplirGrille(grilleJeu);
+    afficherGrille(grilleJeu);
+
+    if(estPleine(grilleJeu,'1'))
+    {
+        cout << "bonsoir";
+    }
+
+    marquerGrille(grilleJeu,'3',1);
+    afficherGrille(grilleJeu);
+    
+    return 0;
+} 
 
 
 int main(void)
@@ -40,6 +47,7 @@ int main(void)
     
     UnJeton grilleJeu[NB_LIGNES][NB_COLONNES]; // Grille contenant les coups joués des joueurs.
     unsigned short int joueurEnCours; // 1 = joueur rouge, 2 = joueur jaune
+    SensVictoire alignement; // Représente s'il y a eu un vainqueur (le sens) ou non (aucun)
 
     char coupJoue; // Entre 0 et le nombre de colonnes max
     unsigned int nbCoupJoues = 0;
@@ -53,7 +61,7 @@ int main(void)
     remplirGrille(grilleJeu);
     afficherGrille(grilleJeu);
 
-    // Choix du premier joueur à jouer
+    // Choix aléatoire du premier joueur à jouer
     cout << "Tirage au sort : le joueur ";
     joueurEnCours = static_cast<unsigned short int>(random(1,2));
 
@@ -75,6 +83,7 @@ int main(void)
     while (nbCoupJoues < (NB_LIGNES * NB_COLONNES)){
         afficherGrille(grilleJeu);
 
+        // On affiche le joueur qui a la main
         cout << "Le joueur ";
         if (joueurEnCours == 1)
         {
@@ -86,12 +95,18 @@ int main(void)
         }
         cout << "a la main." << endl << endl;
 
-        do{
+        while(true) {
             // Saisie Verif 
-            saisieVerif(coupJoue,abandon);
+            saisieVerif(grilleJeu,coupJoue,abandon);
 
+            if(abandon) {
+                break;
+            }
             // Verification si la colonne est pleine
-        } while(estPleine(grilleJeu,coupJoue,abandon));
+            if(!estPleine(grilleJeu,coupJoue)){
+                break;
+            }
+        }
         
         // Cas où le joueur abandonne
         if(abandon) {
@@ -101,6 +116,7 @@ int main(void)
         // Marquage de la grille 
         marquerGrille(grilleJeu,coupJoue,joueurEnCours);
         
+        // Incrémentation du nombre de coups joués 
         nbCoupJoues++;
 
         // On regarde si 4 jetons sont alignés

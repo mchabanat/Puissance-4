@@ -13,27 +13,32 @@
 
 using namespace std;
 
-int main(void){
-    UnJeton grilleJeu[NB_COLONNES][NB_LIGNES] = {
-        red,yellow,red,yellow,red,yellow,red,
-        empty,empty,empty,empty,empty,empty,empty,
-        empty,empty,empty,empty,empty,empty,empty,
-        empty,empty,empty,empty,empty,empty,empty,
-        empty,empty,empty,empty,empty,empty,empty,
-        empty,empty,empty,empty,empty,empty,empty,
-    };
+// int main(void){ // Tests
+//     UnJeton grilleJeu[NB_LIGNES][NB_COLONNES] = {
+//         empty,red,empty,empty,empty,empty,empty,
+//         empty,red,empty,empty,empty,empty,empty,
+//         empty,red,empty,empty,empty,empty,empty,
+//         empty,red,empty,empty,empty,empty,empty,
+//         empty,red,empty,empty,empty,empty,empty,
+//         empty,red,empty,empty,empty,empty,empty
+//     };
+
+//     char coup = '2';
+//     bool ab;
+
+//     if (estPleine(grilleJeu,coup,ab))
+//     {
+//         cout << "bonsoir" << endl;
+//     }
+//     afficherGrille(grilleJeu);
+// }
 
 
-    afficherGrille(grilleJeu);
-}
-
-
-int main2(void)
+int main(void)
 {
     /**************** VARIABLES ****************/
-    char grilleAffichage[NB_COLONNES][NB_LIGNES]; // Grille permettant de gérer l'affichage 
-    UnJeton grilleJeu[NB_COLONNES][NB_LIGNES]; // Grille contenant les coups joués des joueurs.
-    unsigned short int premierJoueur; // 1 = joueur rouge, 2 = joueur jaune
+    
+    UnJeton grilleJeu[NB_LIGNES][NB_COLONNES]; // Grille contenant les coups joués des joueurs.
     unsigned short int joueurEnCours; // 1 = joueur rouge, 2 = joueur jaune
 
     char coupJoue; // Entre 0 et le nombre de colonnes max
@@ -45,15 +50,14 @@ int main2(void)
     
     /**************** TRAITEMENTS ****************/
     // PREPARATION DE LA PARTIE
-    remplirGrille(grilleAffichage);
     remplirGrille(grilleJeu);
-    afficherGrille(grilleAffichage);
+    afficherGrille(grilleJeu);
 
     // Choix du premier joueur à jouer
     cout << "Tirage au sort : le joueur ";
-    premierJoueur = static_cast<unsigned short int>(random(1,2));
+    joueurEnCours = static_cast<unsigned short int>(random(1,2));
 
-    if (premierJoueur==1)
+    if (joueurEnCours==1)
     {
         afficherTexteEnCouleur("rouge ",rouge,false);
     }
@@ -64,14 +68,12 @@ int main2(void)
 
     cout << "commence.";
 
-    joueurEnCours = premierJoueur;
-
     pause(3);
     effacer();
 
     // PARTIE EN COURS
     while (nbCoupJoues < (NB_LIGNES * NB_COLONNES)){
-        afficherGrille(grilleAffichage);
+        afficherGrille(grilleJeu);
 
         cout << "Le joueur ";
         if (joueurEnCours == 1)
@@ -99,6 +101,7 @@ int main2(void)
         // Marquage de la grille 
         marquerGrille(grilleJeu,coupJoue,joueurEnCours);
         
+        nbCoupJoues++;
 
         // On regarde si 4 jetons sont alignés
 
@@ -117,7 +120,7 @@ int main2(void)
     // FIN DE LA PARTIE
     // Cas de l'abandon d'un joueur
     effacer();
-    afficherGrille(grilleAffichage);
+    afficherGrille(grilleJeu);
 
     if(abandon) {
         if (joueurEnCours == 1) {

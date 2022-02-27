@@ -19,24 +19,19 @@ enum UnJeton {red,yellow,empty}; // Type qui montre les 3 possibilités qu'une c
 
 
 /******** SOUS-PROGRAMMES ********/
-void afficherGrille(const char _grille[NB_COLONNES][NB_LIGNES]);
-/* BUT : afficher la grille du Puissance 4 contenant NB_COLONNES colonnes et NB_LIGNES lignes */
+void afficherGrille(const UnJeton _grille[NB_LIGNES][NB_COLONNES]);
+/* BUT : afficher la grille du jeu contenant les jetons joués par les joueurs */
 
-void afficherGrille(const UnJeton _grille[NB_COLONNES][NB_LIGNES]);
-
-void remplirGrille(char _grille[NB_COLONNES][NB_LIGNES]);
-/* BUT : remplir la grille du Puissance 4 contenant NB_COLONNES colonnes et NB_LIGNES lignes afin de préparer le jeu */
-
-void remplirGrille(UnJeton _grille[NB_COLONNES][NB_LIGNES]);
+void remplirGrille(UnJeton _grille[NB_LIGNES][NB_COLONNES]);
 /* BUT : remplir la grille du Puissance 4 contenant NB_COLONNES colonnes et NB_LIGNES lignes afin de préparer le jeu */
 
 void saisieVerif(char& _coup,bool& _abandon);
 /* BUT : Verifier si la colonne saisie est correcte ou non (gère le cas de l'abandon si 0 est saisi) */
 
-bool estPleine(UnJeton _grille[NB_COLONNES][NB_LIGNES], const char& _coup,const bool& _abandon);
+bool estPleine(UnJeton _grille[NB_LIGNES][NB_COLONNES], const char& _coup,const bool& _abandon);
 /* BUT : retourne true si la colonne saisie est pleine, false sinon */
 
-void marquerGrille(UnJeton _grille[NB_COLONNES][NB_LIGNES], char _coup, unsigned short int _joueur);
+void marquerGrille(UnJeton _grille[NB_LIGNES][NB_COLONNES], char _coup, unsigned short int _joueur);
 /* BUT : Marquer la grille à l'endroit du coup saisi par l'utilisateur (vérifié au préalable) */
 
 #endif

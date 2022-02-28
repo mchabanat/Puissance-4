@@ -14,7 +14,7 @@
 using namespace std;
 
 
-int main2(void){ // Tests
+int maina(void){ // Tests
     UnJeton grilleJeu[NB_LIGNES][NB_COLONNES] 
     = {
         empty,red,empty,empty,empty,empty,empty,
@@ -22,20 +22,18 @@ int main2(void){ // Tests
         empty,red,empty,empty,empty,empty,empty,
         empty,yellow,empty,empty,empty,empty,empty,
         empty,yellow,empty,empty,empty,empty,empty,
-        empty,red,empty,empty,empty,empty,empty,
+        empty,red,red,empty,empty,empty,empty
     };
 
     
     // remplirGrille(grilleJeu);
-    afficherGrille(grilleJeu);
+    
 
-    if(estPleine(grilleJeu,'1'))
-    {
-        cout << "bonsoir";
-    }
+    unsigned int ligne;
 
-    marquerGrille(grilleJeu,'3',1);
+    marquerGrille(grilleJeu,'3',1,ligne);
     afficherGrille(grilleJeu);
+    cout << ligne;
     
     return 0;
 } 
@@ -47,9 +45,10 @@ int main(void)
     
     UnJeton grilleJeu[NB_LIGNES][NB_COLONNES]; // Grille contenant les coups joués des joueurs.
     unsigned short int joueurEnCours; // 1 = joueur rouge, 2 = joueur jaune
-    SensVictoire alignement; // Représente s'il y a eu un vainqueur (le sens) ou non (aucun)
+    SensVictoire etatPartie = aucun; // Représente s'il y a eu un vainqueur (le sens) ou non (aucun)
 
     char coupJoue; // Entre 0 et le nombre de colonnes max
+    unsigned int indiceLigne = 0;
     unsigned int nbCoupJoues = 0;
 
     bool abandon = false;
@@ -114,13 +113,18 @@ int main(void)
         }
         
         // Marquage de la grille 
-        marquerGrille(grilleJeu,coupJoue,joueurEnCours);
+        marquerGrille(grilleJeu,coupJoue,joueurEnCours,indiceLigne);
         
         // Incrémentation du nombre de coups joués 
         nbCoupJoues++;
 
         // On regarde si 4 jetons sont alignés
+        etatPartie = etatJetons(grilleJeu,coupJoue,indiceLigne);
 
+        if(etatPartie != aucun){
+            victoire = true;
+            break;
+        }
 
         // Changement de joueur 
         if (joueurEnCours == 1) {
@@ -134,10 +138,10 @@ int main(void)
     }
 
     // FIN DE LA PARTIE
-    // Cas de l'abandon d'un joueur
     effacer();
     afficherGrille(grilleJeu);
 
+    // Cas de l'abandon d'un joueur
     if(abandon) {
         if (joueurEnCours == 1) {
             cout << "Victoire du joueur ";

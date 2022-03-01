@@ -75,7 +75,7 @@ int main(void)
 
     cout << "commence.";
 
-    pause(3);
+    // pause(3);
     effacer();
 
     // PARTIE EN COURS
@@ -134,11 +134,11 @@ int main(void)
             joueurEnCours = 1;
         }
 
-        effacer();
+        // effacer();
     }
 
     // FIN DE LA PARTIE
-    effacer();
+    // effacer();
     afficherGrille(grilleJeu);
 
     // Cas de l'abandon d'un joueur

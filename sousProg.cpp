@@ -10,26 +10,17 @@ void afficherGrille(const UnJeton _grille[NB_LIGNES][NB_COLONNES])
     unsigned int i;
     unsigned int j;
 
-    cout << "    P U I S S A N C E  4    " << endl
-         << endl;
-
-    for (j = 0; j < NB_COLONNES; j++)
-    {
-        cout << "  " << j + 1 << " ";
-    }
-
-    cout << endl;
+    cout << "        P U I S S A N C E  4    " << endl << endl;
 
     for (i = 0; i < NB_LIGNES; i++)
     {
-        cout << "+";
+        cout << "    +";
         for (j = 0; j < NB_COLONNES; j++)
         {
             cout << "---+";
         }
 
-        cout << endl
-             << "|";
+        cout << endl << "    |";
 
         for (j = 0; j < NB_COLONNES; j++)
         {
@@ -52,15 +43,19 @@ void afficherGrille(const UnJeton _grille[NB_LIGNES][NB_COLONNES])
         cout << endl;
     }
 
-    cout << "+";
+    cout << "    +";
     for (j = 0; j < NB_COLONNES; j++)
     {
         cout << "---+";
     }
 
-    cout << endl
-         << endl;
-    ;
+    cout << endl << "    ";
+    for (j = 0; j < NB_COLONNES; j++)
+    {
+        cout << "  " << j + 1 << " ";
+    }
+
+    cout << endl << endl;
 }
 
 void remplirGrille(UnJeton _grille[NB_LIGNES][NB_COLONNES])
@@ -186,7 +181,7 @@ SensVictoire etatJetons(const UnJeton _grille[NB_LIGNES][NB_COLONNES], const cha
     SensVictoire etat = aucun;
 
     // Recherche horizontale
-    for (i = 0; i < NB_COLONNES - 1; i++)
+    for (i = 0; i < NB_COLONNES ; i++)
     {
         if (_grille[_ligne][i] == _grille[_ligne][colonneJouee])
         {
@@ -208,7 +203,7 @@ SensVictoire etatJetons(const UnJeton _grille[NB_LIGNES][NB_COLONNES], const cha
 
     if (etat == aucun)
     {
-        for (i = NB_LIGNES - 1; i > 0; i--)
+        for (i = 0; i < NB_LIGNES; i++)
         {
             if (_grille[i][colonneJouee] == _grille[_ligne][colonneJouee])
             {
@@ -229,43 +224,43 @@ SensVictoire etatJetons(const UnJeton _grille[NB_LIGNES][NB_COLONNES], const cha
 
     // Recherche diagonale
     // Diago de haut gauche a bas droite
-    compteur4ALaSuite = 0;
-    if (etat == aucun)
-    {
-        idLigne = _ligne;
-        idColonne = colonneJouee;
-        i=0;
 
-        while (idColonne >= NB_LIGNES)
-        {
-            idLigne++;
-            idColonne--;
-        }
+    // compteur4ALaSuite = 0;
+    // if (etat == aucun)
+    // {
+    //     idLigne = _ligne;
+    //     idColonne = colonneJouee;
+
+    //     while (idColonne >= NB_LIGNES)
+    //     {
+    //         idLigne++;
+    //         idColonne--;
+    //     }
 
 
-        for (i;i < NB_COLONNES;i++)
-        {
-            if(idColonne < 0)
-            {
-                break;
-            }
+    //     for (i = 0;i < NB_COLONNES;i++)
+    //     {
+    //         if(idColonne < 0)
+    //         {
+    //             break;
+    //         }
             
-            if (_grille[idLigne+i][idColonne+i] == _grille[_ligne][colonneJouee])
-            {
-                compteur4ALaSuite++;
-            }
-            else
-            {
-                compteur4ALaSuite = 0;
-            }
+    //         if (_grille[idLigne+i][idColonne+i] == _grille[_ligne][colonneJouee])
+    //         {
+    //             compteur4ALaSuite++;
+    //         }
+    //         else
+    //         {
+    //             compteur4ALaSuite = 0;
+    //         }
 
-            if (compteur4ALaSuite >= 4)
-            {
-                etat = diagonal;
-                break;
-            }
-        }
-    }
+    //         if (compteur4ALaSuite >= 4)
+    //         {
+    //             etat = diagonal;
+    //             break;
+    //         }
+    //     }
+    // }
 
     // Diago de bas gauche a haut droite
     // compteur4ALaSuite = 0;

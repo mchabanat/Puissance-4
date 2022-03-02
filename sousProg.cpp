@@ -1,6 +1,6 @@
 #include "sousProg.h"
 
-// Sous programme cachés
+// Sous programme privé
 bool estVide(const UnJeton _grille[NB_LIGNES][NB_COLONNES], const char &_coup);
 /* BUT : retourne true si la colonne à l'indice _coup est vide, false sinon */
 
@@ -10,7 +10,7 @@ void afficherGrille(const UnJeton _grille[NB_LIGNES][NB_COLONNES])
     unsigned int i;
     unsigned int j;
 
-    cout << "        P U I S S A N C E  4    " << endl << endl;
+    cout << endl << "        P U I S S A N C E   4    " << endl << endl;
 
     for (i = 0; i < NB_LIGNES; i++)
     {
@@ -86,16 +86,13 @@ void saisieVerif(const UnJeton _grille[NB_LIGNES][NB_COLONNES], char &_coup, boo
         }
         else if (int(_coup) - 48 > NB_COLONNES || int(_coup) - 48 < 0)
         {
-            cout << "ERREUR ! Le numero de colonne doit etre compris entre 1 et " << NB_COLONNES << ". Reessayez." << endl
-                 << endl;
+            cout << "ERREUR ! Le numero de colonne doit etre compris entre 1 et " << NB_COLONNES << ". Reessayez." << endl << endl;
         }
         else
         {
             if (estPleine(_grille, _coup))
             {
-                cout << "Numero de colonne incorrect : la colonne est pleine." << endl
-                     << "Choisissez une autre colonne." << endl
-                     << endl;
+                cout << "Numero de colonne incorrect : la colonne est pleine." << endl << "Choisissez une autre colonne." << endl << endl;
             }
             else
             {
@@ -181,7 +178,7 @@ SensVictoire etatJetons(const UnJeton _grille[NB_LIGNES][NB_COLONNES], const cha
     SensVictoire etat = aucun;
 
     // Recherche horizontale
-    for (i = 0; i < NB_COLONNES ; i++)
+    for (i = 0; i < NB_COLONNES; i++)
     {
         if (_grille[_ligne][i] == _grille[_ligne][colonneJouee])
         {
@@ -225,54 +222,96 @@ SensVictoire etatJetons(const UnJeton _grille[NB_LIGNES][NB_COLONNES], const cha
     // Recherche diagonale
     // Diago de haut gauche a bas droite
 
-    // compteur4ALaSuite = 0;
-    // if (etat == aucun)
-    // {
-    //     idLigne = _ligne;
-    //     idColonne = colonneJouee;
+    compteur4ALaSuite = 0;
+    if (etat == aucun)
+    {
+        idLigne = _ligne;
+        idColonne = colonneJouee;
 
-    //     while (idColonne >= NB_LIGNES)
-    //     {
-    //         idLigne++;
-    //         idColonne--;
-    //     }
+        // Mise en place des indices du début de la recherche
+        idLigne = idLigne - NB_LIGNES - 1;
+        idColonne = idColonne - NB_COLONNES;
 
+        while (idColonne < 0 || idLigne < 0)
+        {
+            idLigne++;
+            idColonne++;
+        }
 
-    //     for (i = 0;i < NB_COLONNES;i++)
-    //     {
-    //         if(idColonne < 0)
-    //         {
-    //             break;
-    //         }
-            
-    //         if (_grille[idLigne+i][idColonne+i] == _grille[_ligne][colonneJouee])
-    //         {
-    //             compteur4ALaSuite++;
-    //         }
-    //         else
-    //         {
-    //             compteur4ALaSuite = 0;
-    //         }
+        // Début de la recherche
+        for (i = 0; i < NB_COLONNES; i++)
+        {
+            if (idLigne > NB_LIGNES - 1 || idColonne > NB_COLONNES - 1)
+            {
+                break;
+            }
 
-    //         if (compteur4ALaSuite >= 4)
-    //         {
-    //             etat = diagonal;
-    //             break;
-    //         }
-    //     }
-    // }
+            if (_grille[idLigne][idColonne] == _grille[_ligne][colonneJouee])
+            {
+
+                compteur4ALaSuite++;
+            }
+            else
+            {
+                compteur4ALaSuite = 0;
+            }
+
+            if (compteur4ALaSuite >= 4)
+            {
+                etat = diagonal;
+                break;
+            }
+
+            idColonne++;
+            idLigne++;
+        }
+    }
 
     // Diago de bas gauche a haut droite
-    // compteur4ALaSuite = 0;
-    // if (etat == aucun)
-    // {
-    //     idLigne = _ligne;
-    //     idColonne = colonneJouee;
-        
-    //     idLigne = idLigne - NB_LIGNES;
-    //     idColonne = idColonne - NB_COLONNES;
-    // }
-    
-    return etat;
+    compteur4ALaSuite = 0;
+    if (etat == aucun)
+    {
+        idLigne = _ligne;
+        idColonne = colonneJouee;
+    }
 
+    // Mise en place des indices du début de la recherche
+    idLigne = idLigne + NB_LIGNES + 1;
+    idColonne = idColonne - NB_COLONNES;
+
+    while (idColonne < 0 || idLigne > NB_LIGNES - 1)
+    {
+        idLigne--;
+        idColonne++;
+    }
+
+    // Début de la recherche
+    for (i = 0; i < NB_COLONNES; i++)
+    {
+        if (idLigne < 0 || idColonne > NB_COLONNES - 1)
+        {
+            break;
+        }
+
+        if (_grille[idLigne][idColonne] == _grille[_ligne][colonneJouee])
+        {
+
+            compteur4ALaSuite++;
+        }
+        else
+        {
+            compteur4ALaSuite = 0;
+        }
+
+        if (compteur4ALaSuite >= 4)
+        {
+            etat = diagonal;
+            break;
+        }
+
+        idColonne++;
+        idLigne--;
+    }
+
+    return etat;
 }

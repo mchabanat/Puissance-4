@@ -12,27 +12,6 @@
 
 using namespace std;
 
-int maina(void)
-{ // Tests
-    UnJeton grilleJeu[NB_LIGNES][NB_COLONNES] = {
-        empty, red, empty, empty, empty, empty, empty,
-        empty, red, empty, empty, empty, empty, empty,
-        empty, red, empty, empty, empty, empty, empty,
-        empty, yellow, empty, empty, empty, empty, empty,
-        empty, yellow, empty, empty, empty, empty, empty,
-        empty, red, red, empty, empty, empty, empty};
-
-    // remplirGrille(grilleJeu);
-
-    unsigned int ligne;
-
-    marquerGrille(grilleJeu, '3', 1, ligne);
-    afficherGrille(grilleJeu);
-    cout << ligne;
-
-    return 0;
-}
-
 int main(void)
 {
     /**************** VARIABLES ****************/
@@ -53,7 +32,7 @@ int main(void)
     remplirGrille(grilleJeu);
     afficherGrille(grilleJeu);
 
-    // Choix aléatoire du premier joueur à jouer
+    // Choix aléatoire du joueur qui commence à jouer
     cout << "Tirage au sort : le joueur ";
     joueurEnCours = static_cast<unsigned short int>(random(1, 2));
 
@@ -68,7 +47,7 @@ int main(void)
 
     cout << "commence.";
 
-    // pause(3);
+    pause(2);
     effacer();
 
     // PARTIE EN COURS
@@ -139,7 +118,7 @@ int main(void)
     }
 
     // FIN DE LA PARTIE
-    // effacer();
+    effacer();
     afficherGrille(grilleJeu);
 
     // Cas de l'abandon d'un joueur
@@ -185,11 +164,12 @@ int main(void)
         case diagonal:
             cout << "a remporte la partie grace a 4 jetons alignes diagonalements !";
             break;
-        default : break;
+        default:
+            break;
         }
     }
 
     cout << endl;
-    
+
     return 0;
 }

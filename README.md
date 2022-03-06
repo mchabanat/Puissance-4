@@ -8,7 +8,7 @@ C'est pour cela que j'ai voulu développer le jeu du Puissance 4 en C++ (sur une
 
 Je me suis servis d'une bibliothèque de mise en forme lors de l'execution du programme.
 Cette bibliothèque, nommée Game-Tools a été créée par mon prof d'Algorithmique et de programmation, 
-M. Patrick ETCHEVERRY alias [@patrick-etcheverry](https://github.com/patrick-etcheverry).
+M. Patrick ETCHEVERRY ([@patrick-etcheverry](https://github.com/patrick-etcheverry)).
 
 ## Contenu 
 
@@ -22,4 +22,4 @@ Mon projet contient :
 
 Ce projet a été réalisé par :
 
-* **Matis CHABANAT** alias [@mchabanat](https://github.com/mchabanat)
+* **Matis CHABANAT** ([@mchabanat](https://github.com/mchabanat))

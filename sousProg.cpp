@@ -1,7 +1,7 @@
 #include "sousProg.h"
 
 // Sous programme privé
-bool estVide(const UnJeton _grille[NB_LIGNES][NB_COLONNES], const char &_coup);
+bool estVide(const UnJeton _grille[NB_LIGNES][NB_COLONNES], string _coup);
 /* BUT : retourne true si la colonne à l'indice _coup est vide, false sinon */
 
 // Sous programmes du .h
@@ -72,19 +72,23 @@ void remplirGrille(UnJeton _grille[NB_LIGNES][NB_COLONNES])
     }
 }
 
-void saisieVerif(const UnJeton _grille[NB_LIGNES][NB_COLONNES], char &_coup, bool &_abandon)
+void saisieVerif(const UnJeton _grille[NB_LIGNES][NB_COLONNES], string& _coup, bool &_abandon)
 {
+    char coupJoue;
+
     while (true)
     {
         cout << "Numero de colonne [1.." << NB_COLONNES << "] (0 pour abandonner) : ";
         cin >> _coup;
 
-        if (int(_coup) - 48 == 0)
+        coupJoue = _coup[0];
+
+        if (int(coupJoue) - 48 == 0)
         {
             _abandon = true;
             break;
         }
-        else if (int(_coup) - 48 > NB_COLONNES || int(_coup) - 48 < 0)
+        else if (int(coupJoue) - 48 > NB_COLONNES || int(coupJoue) - 48 < 0)
         {
             cout << "ERREUR ! Le numero de colonne doit etre compris entre 1 et " << NB_COLONNES << ". Reessayez." << endl << endl;
         }
@@ -102,9 +106,9 @@ void saisieVerif(const UnJeton _grille[NB_LIGNES][NB_COLONNES], char &_coup, boo
     }
 }
 
-bool estVide(const UnJeton _grille[NB_LIGNES][NB_COLONNES], const char &_coup)
+bool estVide(const UnJeton _grille[NB_LIGNES][NB_COLONNES], string _coup)
 {
-    unsigned int colonneJouee = int(_coup) - 49;
+    unsigned int colonneJouee = int(_coup[0]) - 49;
 
     if (_grille[NB_LIGNES - 1][colonneJouee] == empty)
     {
@@ -116,9 +120,9 @@ bool estVide(const UnJeton _grille[NB_LIGNES][NB_COLONNES], const char &_coup)
     }
 }
 
-bool estPleine(const UnJeton _grille[NB_LIGNES][NB_COLONNES], const char &_coup)
+bool estPleine(const UnJeton _grille[NB_LIGNES][NB_COLONNES], string _coup)
 {
-    unsigned int colonneJouee = int(_coup) - 49;
+    unsigned int colonneJouee = int(_coup[0]) - 49;
 
     if (_grille[0][colonneJouee] == empty)
     {
@@ -130,9 +134,9 @@ bool estPleine(const UnJeton _grille[NB_LIGNES][NB_COLONNES], const char &_coup)
     }
 }
 
-void marquerGrille(UnJeton _grille[NB_LIGNES][NB_COLONNES], const char &_coup, unsigned short int _joueur, unsigned int &_ligne)
+void marquerGrille(UnJeton _grille[NB_LIGNES][NB_COLONNES], string _coup, unsigned short int _joueur, unsigned int &_ligne)
 {
-    unsigned int colonneJouee = int(_coup) - 49;
+    unsigned int colonneJouee = int(_coup[0]) - 49;
 
     unsigned int i;
 

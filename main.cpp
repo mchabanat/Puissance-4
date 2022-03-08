@@ -70,14 +70,14 @@ int main(void)
         while (true)
         {
             // Saisie Verif
-            saisieVerif(grilleJeu, coupJoue[0], abandon);
+            saisieVerif(grilleJeu, coupJoue, abandon);
 
             if (abandon)
             {
                 break;
             }
             // Verification si la colonne est pleine
-            if (!estPleine(grilleJeu, coupJoue[0]))
+            if (!estPleine(grilleJeu, coupJoue))
             {
                 break;
             }
@@ -90,7 +90,7 @@ int main(void)
         }
 
         // Marquage de la grille
-        marquerGrille(grilleJeu, coupJoue[0], joueurEnCours, indiceLigne);
+        marquerGrille(grilleJeu, coupJoue, joueurEnCours, indiceLigne);
 
         // Incrémentation du nombre de coups joués
         nbCoupJoues++;

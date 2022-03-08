@@ -25,13 +25,13 @@ void afficherGrille(const UnJeton _grille[NB_LIGNES][NB_COLONNES]);
 void remplirGrille(UnJeton _grille[NB_LIGNES][NB_COLONNES]);
 /* BUT : remplir la grille du Puissance 4 contenant NB_COLONNES colonnes et NB_LIGNES lignes afin de préparer le jeu */
 
-void saisieVerif(const UnJeton _grille[NB_LIGNES][NB_COLONNES], char& _coup,bool& _abandon);
+void saisieVerif(const UnJeton _grille[NB_LIGNES][NB_COLONNES], string& _coup,bool& _abandon);
 /* BUT : Verifier si la colonne saisie est correcte ou non (gère le cas de l'abandon si 0 est saisi) */
 
-bool estPleine(const UnJeton _grille[NB_LIGNES][NB_COLONNES], const char& _coup);
+bool estPleine(const UnJeton _grille[NB_LIGNES][NB_COLONNES], string _coup);
 /* BUT : retourne true si la colonne saisie est pleine, false sinon */
 
-void marquerGrille(UnJeton _grille[NB_LIGNES][NB_COLONNES], const char& _coup, unsigned short int _joueur, unsigned int& _ligne);
+void marquerGrille(UnJeton _grille[NB_LIGNES][NB_COLONNES], string _coup, unsigned short int _joueur, unsigned int& _ligne);
 /* BUT : Marquer la grille à l'endroit du coup saisi par l'utilisateur (vérifié au préalable) et renvoie l'indice de la ligne où est posé le jeton*/
 
 
